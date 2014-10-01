@@ -1,4 +1,4 @@
 PixiGlitch
 ==========
 
-Post of ofxPostGlitch to pixi.js
+Port of ofxPostGlitch to pixi.js
