@@ -18,6 +18,7 @@
     var square = null;
     var squares = [];
     var steps = 0;
+    var i = 0;
 
     var whiteBg = new PIXI.Graphics();
     whiteBg.beginFill(0xffffff, 1);
@@ -31,7 +32,7 @@
     container.addChild(blackBg);
 
     // create them - a bunch of squares all random
-    for (var i = 0; i < 500; i++) {
+    for (i = 0; i < 500; i++) {
         var sideLength = (Math.exp(Math.random()) - 1) * 100;
         square = new PIXI.Graphics();
         square.beginFill(COOL_COLOURS[Math.floor(Math.random() * COOL_COLOURS.length)]);
@@ -48,41 +49,40 @@
     }
     stage.addChild(container);
 
-    // create our filters
     var filters = [
         // color filters
         {
-            name: 'RedInvertFilter',
+            name: 'RedInvert',
             filter: new PIXI_GLITCH.RedInvertFilter(),
             isActive: false
         },
         {
-            name: 'RedRaiseFilter',
+            name: 'RedRaise',
             filter: new PIXI_GLITCH.RedRaiseFilter(),
             isActive: false
         },
         {
-            name: 'GreenInvertFilter',
+            name: 'GreenInvert',
             filter: new PIXI_GLITCH.GreenInvertFilter(),
             isActive: false
         },
         {
-            name: 'GreenRaiseFilter',
+            name: 'GreenRaise',
             filter: new PIXI_GLITCH.GreenRaiseFilter(),
             isActive: false
         },
         {
-            name: 'BlueInvertFilter',
+            name: 'BlueInvert',
             filter: new PIXI_GLITCH.BlueInvertFilter(),
             isActive: false
         },
         {
-            name: 'BlueRaiseFilter',
+            name: 'BlueRaise',
             filter: new PIXI_GLITCH.BlueRaiseFilter(),
             isActive: false
         },
         {
-            name: 'InvertFilter',
+            name: 'Invert',
             filter: new PIXI_GLITCH.InvertFilter(),
             isActive: false
         },
@@ -91,6 +91,7 @@
         {
             name: 'Convergence',
             filter: new PIXI_GLITCH.ConvergenceFilter(),
+            values: [{name: 'rand', min: 0, max: 5}],
             isActive: false
         },
         {
@@ -117,31 +118,40 @@
             name: 'Shaker',
             filter: new PIXI_GLITCH.ShakerFilter(),
             isActive: false
+
         },
         {
             name: 'SlitScan',
             filter: new PIXI_GLITCH.SlitScanFilter(),
+            values: [{name: 'rand', min: -100, max: 100}],
             isActive: false
         },
         {
             name: 'Swell',
             filter: new PIXI_GLITCH.SwellFilter(),
+            values: [{name: 'rand', min: -100, max: 100}, {name: 'timer', min: 0, max: 10000}],
             isActive: false
         },
         {
             name: 'Twist',
             filter: new PIXI_GLITCH.TwistFilter(),
+            values: [{name: 'rand', min: 0, max: 10}, {name: 'timer', min: 0, max: 10000}, {name: 'val2', min: 0, max: 100}, {name: 'val3', min: 0, max: 1000}],
             isActive: false
         }
     ];
 
     // create a bit of interface
     var gui = new dat.GUI();
-    for (var i = 0; i < filters.length; i++) {
+    for (i = 0; i < filters.length; i++) {
         var item = filters[i];
         var folder = gui.addFolder(item.name);
         folder.add(item, 'isActive').onChange(onIsActiveChange.bind(this));
-        //folder.open();
+        if (item.values) {
+            for (var j = 0; j < item.values.length; j++) {
+                var valueItem = item.values[j];
+                folder.add(item.filter, valueItem.name, valueItem.min, valueItem.max);
+            }
+        }
     }
 
     function onIsActiveChange() {
@@ -163,7 +173,7 @@
 
 
         // move our squares around the screen all trippy and floaty and trigonometry
-        for (var i = 0; i < squares.length; i++) {
+        for (i = 0; i < squares.length; i++) {
             square = squares[i].square;
             sideLength = squares[i].sideLength;
             counter = squares[i].counter++;
