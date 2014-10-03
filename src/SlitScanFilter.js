@@ -31,4 +31,14 @@ PIXI_GLITCH.SlitScanFilter = function () {
 PIXI_GLITCH.SlitScanFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
 PIXI_GLITCH.SlitScanFilter.prototype.constructor = PIXI_GLITCH.SlitScanFilter;
 
+Object.defineProperty(PIXI_GLITCH.SlitScanFilter.prototype, 'rand', {
+    get: function() {
+        return this.uniforms.rand.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.rand.value = value;
+    }
+});
+
 

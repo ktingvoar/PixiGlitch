@@ -6,10 +6,10 @@ PIXI_GLITCH.TwistFilter = function () {
     this.passes = [this];
 
     this.uniforms = {
-        rand: {type: '1f', value: 0.25},
+        rand: {type: '1f', value: 0.5},
         timer: {type: '1f', value: 0},
         val2: {type: '1f', value: 5},
-        val3: {type: '1f', value: 10},
+        val3: {type: '1f', value: 55},
         dimensions: {type: '4fv', value: [0, 0, 0, 0]}
     };
 
@@ -38,4 +38,43 @@ PIXI_GLITCH.TwistFilter = function () {
 PIXI_GLITCH.TwistFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
 PIXI_GLITCH.TwistFilter.prototype.constructor = PIXI_GLITCH.TwistFilter;
 
+Object.defineProperty(PIXI_GLITCH.TwistFilter.prototype, 'rand', {
+    get: function() {
+        return this.uniforms.rand.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.rand.value = value;
+    }
+});
+
+Object.defineProperty(PIXI_GLITCH.TwistFilter.prototype, 'timer', {
+    get: function() {
+        return this.uniforms.timer.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.timer.value = value;
+    }
+});
+
+Object.defineProperty(PIXI_GLITCH.TwistFilter.prototype, 'val2', {
+    get: function() {
+        return this.uniforms.val2.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.val2.value = value;
+    }
+});
+
+Object.defineProperty(PIXI_GLITCH.TwistFilter.prototype, 'val3', {
+    get: function() {
+        return this.uniforms.val3.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.val3.value = value;
+    }
+});
 

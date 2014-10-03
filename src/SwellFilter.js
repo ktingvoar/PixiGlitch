@@ -32,4 +32,23 @@ PIXI_GLITCH.SwellFilter = function () {
 PIXI_GLITCH.SwellFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
 PIXI_GLITCH.SwellFilter.prototype.constructor = PIXI_GLITCH.SwellFilter;
 
+Object.defineProperty(PIXI_GLITCH.SwellFilter.prototype, 'rand', {
+    get: function() {
+        return this.uniforms.rand.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.rand.value = value;
+    }
+});
+
+Object.defineProperty(PIXI_GLITCH.SwellFilter.prototype, 'timer', {
+    get: function() {
+        return this.uniforms.timer.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.timer.value = value;
+    }
+});
 
