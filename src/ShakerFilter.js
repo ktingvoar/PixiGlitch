@@ -7,7 +7,7 @@ PIXI_GLITCH.ShakerFilter = function () {
 
     this.uniforms = {
         dimensions: {type: '4fv', value: [0, 0, 0, 0]},
-        blur: {type: '2fv', value: [0.5, 0]}
+        blur: {type: '2fv', value: [10, 0]}
     };
 
     this.fragmentSrc = [
