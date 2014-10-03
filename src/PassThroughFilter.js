@@ -1,7 +1,7 @@
 var PIXI_GLITCH = PIXI_GLITCH || {};
-PIXI_GLITCH.PassThroughFilter = function()
-{
-    PIXI.AbstractFilter.call( this );
+
+PIXI_GLITCH.PassThroughFilter = function () {
+    PIXI.AbstractFilter.call(this);
 
     this.passes = [this];
 
@@ -11,14 +11,14 @@ PIXI_GLITCH.PassThroughFilter = function()
         'varying vec2 vTextureCoord;',
         'void main (void)',
         '{',
-          'vec4 col = texture2D(uSampler, vTextureCoord);',
-          'gl_FragColor.rgba = col.rgba;',
+        '   vec4 col = texture2D(uSampler, vTextureCoord);',
+        '   gl_FragColor.rgba = col.rgba;',
         '}'
     ];
 
 };
 
-PIXI_GLITCH.PassThroughFilter.prototype = Object.create( PIXI.AbstractFilter.prototype );
+PIXI_GLITCH.PassThroughFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
 PIXI_GLITCH.PassThroughFilter.prototype.constructor = PIXI_GLITCH.PassThroughFilter;
 
 
