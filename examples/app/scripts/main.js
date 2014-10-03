@@ -1,9 +1,9 @@
 'use strict';
 (function() {
 
-  //var COOL_COLOURS = [0xffffff, 0x000000, 0xff1bc6, 0x7cff1b, 0xffcc1b, 0x1bc7ff];
+  var COOL_COLOURS = [0xffffff, 0x000000, 0xff1bc6, 0x7cff1b, 0xffcc1b, 0x1bc7ff];
   //var COOL_COLOURS = [0xffffff, 0xffffff, 0xeeeeee, 0xcccccc, 0x999999, 0x555555, 0x777777];
-  var COOL_COLOURS = [0xffffff, 0x000000];
+  //var COOL_COLOURS = [0xffffff, 0x000000];
 
   var view = document.getElementById('pixi-view');
   var stage = new PIXI.Stage(0xFFFFFF, true);
@@ -45,16 +45,23 @@
     container.addChild(square);
   }
   stage.addChild(container);
-    container.filters = [new PIXI_GLITCH.BlueRaiseFilter(), new PIXI_GLITCH.NoiseFilter()];
+    container.filters = [ new PIXI_GLITCH.SwellFilter(), new PIXI_GLITCH.CutSliderFilter(), new PIXI_GLITCH.NoiseFilter()];
   //container.filters = [ new PIXI.GlowFilter()];
  //container.filters = [/*new PIXI.TwistFilter(), new PIXI.NoiseFilter()*//*, new PIXI.ConvergenceFilter()*/];
-  //container.filters = [new PIXI.ConvergenceFilter(), new PIXI.CutSliderFilter(),  new PIXI.BlueRaiseFilter()];
+  //container.filters = [new PIXI.ConvergenceFilter(), ,  new PIXI.BlueRaiseFilter()];
 
   function step() {
     var square = null;
     var side = null;
     var numSteps = null;
-    container.filters[1].uniforms.rand.value = Math.random();
+      container.filters[0].uniforms.rand.value = Math.sin(counter * 0.005) * 10;
+      container.filters[0].uniforms.timer.value = Math.sin(counter * 0.01) * 5;
+        if (Math.random() > 0.90) {
+            container.filters[1].uniforms.rand.value = Math.random();
+            container.filters[1].uniforms.val1.value = Math.random() * 15;
+            container.filters[1].uniforms.val2.value = Math.random() * 1000;
+        }
+        container.filters[2].uniforms.rand.value = Math.random();
  /*   if (Math.random() > 0.85) {
       container.filters[1].uniforms.rand.value = Math.random() * 1.5;
     }*/
@@ -90,7 +97,7 @@
       squares[i].numSteps++;
     }
     renderer.render(stage);
-    counter++;
+    counter += 1;
     window.requestAnimationFrame(step);
   }
 
