@@ -1,6 +1,7 @@
 var PIXI_GLITCH = PIXI_GLITCH || {};
 
 PIXI_GLITCH.ConvergenceFilter = function () {
+
     PIXI.AbstractFilter.call(this);
 
     this.passes = [this];
@@ -34,4 +35,12 @@ PIXI_GLITCH.ConvergenceFilter = function () {
 PIXI_GLITCH.ConvergenceFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
 PIXI_GLITCH.ConvergenceFilter.prototype.constructor = PIXI_GLITCH.ConvergenceFilter;
 
-
+Object.defineProperty(PIXI_GLITCH.ConvergenceFilter.prototype, 'rand', {
+    get: function() {
+        return this.uniforms.rand.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.rand.value = value;
+    }
+});
