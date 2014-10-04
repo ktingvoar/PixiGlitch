@@ -6,7 +6,7 @@ PIXI_GLITCH.SlitScanFilter = function () {
     this.passes = [this];
 
     this.uniforms = {
-        rand: {type: '1f', value: 0.5},
+        rand: {type: '1f', value: 15},
         dimensions: {type: '4fv', value: [0, 0, 0, 0]}
     };
 
