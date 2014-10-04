@@ -7,6 +7,7 @@ PIXI_GLITCH.NoiseFilter = function () {
 
     this.uniforms = {
         rand: {type: '1f', value: 0.5},
+        strength: {type: '1f', value: 0.25},
         dimensions: {type: '4fv', value: [0, 0, 0, 0]}
     };
 
@@ -15,6 +16,7 @@ PIXI_GLITCH.NoiseFilter = function () {
         'uniform sampler2D uSampler;',
         'uniform vec4 dimensions;',
         'uniform float rand;',
+        'uniform float strength;',
         'varying vec2 vTextureCoord;',
 
         'vec3 mod289(vec3 x) {',
@@ -59,7 +61,7 @@ PIXI_GLITCH.NoiseFilter = function () {
         '   vec4 col = texture2D(uSampler, vTextureCoord);',
         '   vec2 pos = vTextureCoord * vec2(dimensions);',
         '   vec2 posOffset = vec2(pos.x * pos.y + rand * 231.5, pos.x + pos.y - rand * 324.1);',
-        '   col.rgb = col.rgb + snoise(posOffset) * 0.25;',
+        '   col.rgb = col.rgb + snoise(posOffset) * strength;',
         '   gl_FragColor.rgba = col.rgba;',
         '}'
     ];
@@ -69,4 +71,23 @@ PIXI_GLITCH.NoiseFilter = function () {
 PIXI_GLITCH.NoiseFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
 PIXI_GLITCH.NoiseFilter.prototype.constructor = PIXI_GLITCH.NoiseFilter;
 
+Object.defineProperty(PIXI_GLITCH.NoiseFilter.prototype, 'strength', {
+    get: function() {
+        return this.uniforms.strength.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.strength.value = value;
+    }
+});
+
+Object.defineProperty(PIXI_GLITCH.NoiseFilter.prototype, 'rand', {
+    get: function() {
+        return this.uniforms.rand.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.rand.value = value;
+    }
+});
 

@@ -7,7 +7,7 @@ PIXI_GLITCH.ShakerFilter = function () {
 
     this.uniforms = {
         dimensions: {type: '4fv', value: [0, 0, 0, 0]},
-        blur: {type: '2fv', value: [10, 0]}
+        blur: {type: '2fv', value: [5, 0]}
     };
 
     this.fragmentSrc = [
@@ -38,4 +38,22 @@ PIXI_GLITCH.ShakerFilter = function () {
 PIXI_GLITCH.ShakerFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
 PIXI_GLITCH.ShakerFilter.prototype.constructor = PIXI_GLITCH.ShakerFilter;
 
+Object.defineProperty(PIXI_GLITCH.ShakerFilter.prototype, 'blurX', {
+    get: function() {
+        return this.uniforms.blur.value[0];
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.blur.value[0] = value;
+    }
+});
 
+Object.defineProperty(PIXI_GLITCH.ShakerFilter.prototype, 'blurY', {
+    get: function() {
+        return this.uniforms.blur.value[1];
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.blur.value[1] = value;
+    }
+});

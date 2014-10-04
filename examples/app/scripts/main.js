@@ -97,16 +97,12 @@
         {
             name: 'CutSlider',
             filter: new PIXI_GLITCH.CutSliderFilter(),
+            values: [{name: 'rand', min: 0, max: 20}, {name: 'val1', min: 0, max: 700}, {name: 'val2', min: 0, max: 100} ],
             isActive: false
         },
         {
             name: 'Glow',
             filter: new PIXI_GLITCH.GlowFilter(),
-            isActive: false
-        },
-        {
-            name: 'Noise',
-            filter: new PIXI_GLITCH.NoiseFilter(),
             isActive: false
         },
         {
@@ -117,6 +113,7 @@
         {
             name: 'Shaker',
             filter: new PIXI_GLITCH.ShakerFilter(),
+            values: [{name: 'blurX', min: 0, max: 20}, {name: 'blurY', min: 0, max: 20}],
             isActive: false
 
         },
@@ -136,6 +133,13 @@
             name: 'Twist',
             filter: new PIXI_GLITCH.TwistFilter(),
             values: [{name: 'rand', min: 0, max: 10}, {name: 'timer', min: 0, max: 10000}, {name: 'val2', min: 0, max: 100}, {name: 'val3', min: 0, max: 1000}],
+            isActive: false
+        },
+        {
+            name: 'Noise',
+            filter: new PIXI_GLITCH.NoiseFilter(),
+            useAutoRand: true,
+            values: [{name: 'strength', min: 0, max: 1}],
             isActive: false
         }
     ];
@@ -171,7 +175,6 @@
         var sideLength = null;
         var counter = null;
 
-
         // move our squares around the screen all trippy and floaty and trigonometry
         for (i = 0; i < squares.length; i++) {
             square = squares[i].square;
@@ -181,6 +184,15 @@
             square.position.y += Math.sin(counter * 0.002) * sideLength * 0.015;
             square.rotation += Math.sin(counter * 0.01) * 0.01;
         }
+
+        // values that the filters might require updating on each tick
+        for (i = 0; i < filters.length; i++) {
+            var item = filters[i];
+            if (item.useAutoRand) {
+                item.filter.rand = Math.random();
+            }
+        }
+
         renderer.render(stage);
         steps ++;
         window.requestAnimationFrame(step);

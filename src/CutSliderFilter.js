@@ -6,9 +6,9 @@ PIXI_GLITCH.CutSliderFilter = function () {
     this.passes = [this];
 
     this.uniforms = {
-        rand: {type: '1f', value: 0.25},
-        val1: {type: '1f', value: 30},
-        val2: {type: '1f', value: 100},
+        rand: {type: '1f', value: 5},
+        val1: {type: '1f', value: 150},
+        val2: {type: '1f', value: 20},
         dimensions: {type: '4fv', value: [0, 0, 0, 0]}
     };
 
@@ -35,4 +35,32 @@ PIXI_GLITCH.CutSliderFilter = function () {
 PIXI_GLITCH.CutSliderFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
 PIXI_GLITCH.CutSliderFilter.prototype.constructor = PIXI_GLITCH.CutSliderFilter;
 
+Object.defineProperty(PIXI_GLITCH.CutSliderFilter.prototype, 'rand', {
+    get: function() {
+        return this.uniforms.rand.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.rand.value = value;
+    }
+});
 
+Object.defineProperty(PIXI_GLITCH.CutSliderFilter.prototype, 'val1', {
+    get: function() {
+        return this.uniforms.val1.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.val1.value = value;
+    }
+});
+
+Object.defineProperty(PIXI_GLITCH.CutSliderFilter.prototype, 'val2', {
+    get: function() {
+        return this.uniforms.val2.value;
+    },
+    set: function(value) {
+        this.dirty = true;
+        this.uniforms.val2.value = value;
+    }
+});
