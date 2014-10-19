@@ -5,12 +5,12 @@ A port of Maxilla's [ofxPostGlitch](https://github.com/maxillacult/ofxPostGlitch
 Get a feel for what you can do by watching Maxilla's demo:
 [http://vimeo.com/58698980](http://vimeo.com/58698980)
 
-Or twiddle the dials on this [example](http://htmlpreview.github.io/?github.com/ktingvoar/PixiGlitch/blob/master/examples/app/index.html).
+Or twiddle the dials on this [example](http://htmlpreview.github.io/?github.com/ktingvoar/PixiGlitch/blob/master/examples/dashboard/index.html).
 
 #What you get
 A bunch of pixi.js filters roughly sliced into two categories.
 
-## Glitch FXs
+## Glitch filters
 - Convergence
 - Glow
 - Shaker
@@ -22,7 +22,7 @@ A bunch of pixi.js filters roughly sliced into two categories.
 - Swell
 - Invert
 
-## Color remap FXs
+## Colour remap filters
 - HighContrast
 - BlueRaise
 - RedRaise
