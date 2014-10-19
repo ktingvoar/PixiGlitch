@@ -63,7 +63,7 @@
             name: 'RedRaise',
             filter: new PIXI_GLITCH.RedRaiseFilter(),
             isActive: false,
-            demoModeOdds: 0.8
+            demoModeOdds: 0.9
         },
         {
             name: 'GreenInvert',
@@ -75,7 +75,7 @@
             name: 'GreenRaise',
             filter: new PIXI_GLITCH.GreenRaiseFilter(),
             isActive: false,
-            demoModeOdds: 0.6
+            demoModeOdds: 0.9
         },
         {
             name: 'BlueInvert',
