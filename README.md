@@ -1,6 +1,5 @@
 PixiGlitch
 ==========
-
 Port of Maxilla's [ofxPostGlitch](https://github.com/maxillacult/ofxPostGlitch) for openFrameworks to Good Boy Digital's rather awesome [pixi.js](https://github.com/GoodBoyDigital/pixi.js).
 
 Get a feel for what you can do by watching Maxilla's demo:
