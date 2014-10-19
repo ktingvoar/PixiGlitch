@@ -7,7 +7,7 @@ Get a feel for what you can do by watching Maxilla's demo:
 
 Or twiddle the dials on this [example](http://htmlpreview.github.io/?github.com/ktingvoar/PixiGlitch/blob/master/examples/app/index.html)
 
-#What You Get:
+#What you get
 A bunch of pixi.js filters roughly sliced into two categories.
 
 ## Glitch FXs
