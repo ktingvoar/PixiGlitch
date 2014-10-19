@@ -149,7 +149,7 @@
         {
             name: 'Twist',
             filter: new PIXI_GLITCH.TwistFilter(),
-            values: [{name: 'rand', min: 0, max: 10}, {name: 'timer', min: 0, max: 10000}, {name: 'val2', min: 0, max: 100}, {name: 'val3', min: 0, max: 1000}],
+            values: [{name: 'rand', min: 0, max: 10}, {name: 'timer', min: 0, max: 500}, {name: 'val2', min: 0, max: 100}, {name: 'val3', min: 0, max: 1000}],
             isActive: false,
             demoModeOdds: 0.9
         },
@@ -169,11 +169,11 @@
     for (i = 0; i < filters.length; i++) {
         var item = filters[i];
         var folder = gui.addFolder(item.name);
-        folder.add(item, 'isActive').onChange(onIsActiveChange);
+        folder.add(item, 'isActive').listen().onChange(onIsActiveChange);
         if (item.values) {
             for (var j = 0; j < item.values.length; j++) {
                 var valueItem = item.values[j];
-                folder.add(item.filter, valueItem.name, valueItem.min, valueItem.max);
+                folder.add(item.filter, valueItem.name, valueItem.min, valueItem.max).listen();
             }
         }
     }
