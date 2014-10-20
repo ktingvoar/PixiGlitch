@@ -20,7 +20,7 @@
     // our test display objects
     var square = null;
     var squares = [];
-    var steps = 2000;
+    var steps = 500;
     var i = 0;
 
     // some Multipliers
