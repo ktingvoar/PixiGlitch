@@ -1,3 +1,7 @@
+/**
+ * @author Matt Smith http://gun.net.au @ktingvoar
+ */
+
 var PIXI_GLITCH = PIXI_GLITCH || {};
 
 PIXI_GLITCH.SwellFilter = function () {
