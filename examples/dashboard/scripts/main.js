@@ -5,7 +5,7 @@
     var COOL_COLOURS = [0xffffff, 0xffffff, 0xeeeeee, 0xcccccc, 0x999999, 0x555555, 0x777777];
     //var COOL_COLOURS = [0xffffff, 0x000000];
 
-    window.demoMode = false;
+    window.demoMode = true;
 
     var view = document.getElementById('pixi-view');
     var stage = new PIXI.Stage(0xFFFFFF, true);
