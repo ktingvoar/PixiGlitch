@@ -1,35 +1,19 @@
 /**
  * @author Matt Smith http://gun.net.au @ktingvoar
  */
+var core = require('../../node_modules/pixi.js/src/core');
+// @see https://github.com/substack/brfs/issues/25
+var fs = require('fs');
 
-var PIXI_GLITCH = PIXI_GLITCH || {};
+function BlueRaiseFilter() {
+    PIXI.AbstractFilter.call(this,
 
-PIXI_GLITCH.BlueRaiseFilter = function () {
-    PIXI.AbstractFilter.call(this);
+    null,
 
-    this.passes = [this];
-
-    this.fragmentSrc = [
-        'precision mediump float;',
-        'uniform sampler2D uSampler;',
-        'varying vec2 vTextureCoord;',
-        'void main (void)',
-        '{',
-        '   float e = 2.718281828459045235360287471352;',
-        '   vec4 col = texture2D(uSampler, vTextureCoord);',
-        '   vec3 k =   vec3(0.2,0.2,.25);',
-        '   vec3 min = vec3(0.0,0.0,0.2);',
-        '   vec3 max = vec3(1.0,1.0,0.8);',
-        '   col.r = (1.0/(1.0+pow(e,(-k.r*((col.r*2.0)-1.0)*20.0)))*(max.r-min.r)+min.r);',
-        '   col.g = (1.0/(1.0+pow(e,(-k.g*((col.g*2.0)-1.0)*20.0)))*(max.g-min.g)+min.g);',
-        '   col.b = (1.0/(1.0+pow(e,(-k.b*((col.b*2.0)-1.0)*20.0)))*(max.b-min.b)+min.b);',
-        '   gl_FragColor.rgba = col.rgba;',
-        '}'
-    ];
-
+    fs.readFileSync(__dirname + '/blueraise.frag', 'utf8'));
 };
 
-PIXI_GLITCH.BlueRaiseFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
-PIXI_GLITCH.BlueRaiseFilter.prototype.constructor = PIXI_GLITCH.BlueRaiseFilter;
+BlueRaiseFilter.prototype = Object.create(core.AbstractFilter.prototype);
+BlueRaiseFilter.prototype.constructor = BlueRaiseFilter;
 
-
+module.exports = BlueRaiseFilter;

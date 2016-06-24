@@ -1,45 +1,31 @@
 /**
  * @author Matt Smith http://gun.net.au @ktingvoar
  */
+var core = require('../../node_modules/pixi.js/src/core');
+// @see https://github.com/substack/brfs/issues/25
+var fs = require('fs');
 
-var PIXI_GLITCH = PIXI_GLITCH || {};
+function CutSliderFilter() {
+    PIXI.AbstractFilter.call(this,
+      
+      null,
 
-PIXI_GLITCH.CutSliderFilter = function () {
-    PIXI.AbstractFilter.call(this);
+      fs.readFileSync(__dirname + '/cutslider.frag', 'utf8'),
 
-    this.passes = [this];
 
-    this.uniforms = {
-        rand: {type: '1f', value: 5},
-        val1: {type: '1f', value: 150},
-        val2: {type: '1f', value: 20},
-        dimensions: {type: '4fv', value: [0, 0, 0, 0]}
-    };
-
-    this.fragmentSrc = [
-        'precision mediump float;',
-        'uniform sampler2D uSampler;',
-        'uniform float rand;',
-        'uniform float val1;',
-        'uniform float val2;',
-        'uniform vec4 dimensions;',
-        'varying vec2 vTextureCoord;',
-        'void main (void)',
-        '{',
-        '   vec2 pos = vTextureCoord * vec2(dimensions);',
-        '   vec2 posOffset = pos + vec2(floor(sin(pos.y / val1 * rand + rand * rand)) * val2 * rand, 0);',
-        '   posOffset = posOffset / vec2(dimensions);',
-        '   vec4 col = texture2D(uSampler, posOffset);',
-        '   gl_FragColor.rgba = col.rgba;',
-        '}'
-    ];
-
+      {
+          rand: {type: '1f', value: 5},
+          val1: {type: '1f', value: 150},
+          val2: {type: '1f', value: 20},
+          dimensions: {type: '4fv', value: [0, 0, 0, 0]}
+      }
+    );
 };
 
-PIXI_GLITCH.CutSliderFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
-PIXI_GLITCH.CutSliderFilter.prototype.constructor = PIXI_GLITCH.CutSliderFilter;
+CutSliderFilter.prototype = Object.create(core.AbstractFilter.prototype);
+CutSliderFilter.prototype.constructor = CutSliderFilter;
 
-Object.defineProperty(PIXI_GLITCH.CutSliderFilter.prototype, 'rand', {
+Object.defineProperty(CutSliderFilter.prototype, 'rand', {
     get: function() {
         return this.uniforms.rand.value;
     },
@@ -49,7 +35,7 @@ Object.defineProperty(PIXI_GLITCH.CutSliderFilter.prototype, 'rand', {
     }
 });
 
-Object.defineProperty(PIXI_GLITCH.CutSliderFilter.prototype, 'val1', {
+Object.defineProperty(CutSliderFilter.prototype, 'val1', {
     get: function() {
         return this.uniforms.val1.value;
     },
@@ -59,7 +45,7 @@ Object.defineProperty(PIXI_GLITCH.CutSliderFilter.prototype, 'val1', {
     }
 });
 
-Object.defineProperty(PIXI_GLITCH.CutSliderFilter.prototype, 'val2', {
+Object.defineProperty(CutSliderFilter.prototype, 'val2', {
     get: function() {
         return this.uniforms.val2.value;
     },
@@ -68,3 +54,5 @@ Object.defineProperty(PIXI_GLITCH.CutSliderFilter.prototype, 'val2', {
         this.uniforms.val2.value = value;
     }
 });
+
+module.exports = CutSliderFilter;
