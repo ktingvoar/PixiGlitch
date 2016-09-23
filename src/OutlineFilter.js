@@ -1,49 +1,25 @@
 /**
  * @author Matt Smith http://gun.net.au @ktingvoar
  */
+var core = require('../../node_modules/pixi.js/src/core');
+// @see https://github.com/substack/brfs/issues/25
+var fs = require('fs');
 
-var PIXI_GLITCH = PIXI_GLITCH || {};
+function OutlineFilter() {
+    PIXI.AbstractFilter.call(this,
+    
+    null,
 
-PIXI_GLITCH.OutlineFilter = function () {
-    PIXI.AbstractFilter.call(this);
+    fs.readFileSync(__dirname + '/outline.frag', 'utf8'),
 
-    this.passes = [this];
-
-    this.uniforms = {
+    {
         dimensions: {type: '4fv', value: [0, 0, 0, 0]}
-    };
-
-    this.fragmentSrc = [
-        'precision mediump float;',
-        'uniform sampler2D uSampler;',
-        'uniform vec4 dimensions;',
-        'varying vec2 vTextureCoord;',
-        'const int step = 5;',
-        'void main (void)',
-        '{',
-        '   vec2 pos = vTextureCoord * vec2(dimensions);',
-        '   vec4 cols[25];',
-        '   for (int i = 0; i < step; i++) {',
-        '       for (int j = 0; j < step; j++) {',
-        '           vec2 coord = vec2((pos.x + float(j) - 1.0), (pos.y + float(i) - 1.0)) / vec2(dimensions);',
-        '           cols[i * step + j] = texture2D(uSampler, coord);',
-        '           cols[i * step + j].r = (cols[i * step + j].r + cols[i * step + j].g + cols[i * step + j].b) / 3.0;',
-        '       }',
-        '   }',
-        '   float mn = 1.0, mx = 0.0;',
-        '   for (int i = 0; i < step * step; i++){',
-        '       mn = min(cols[i].r, mn);',
-        '       mx = max(cols[i].r, mx);',
-        '   }',
-        '   float dst = abs(1.0 - (mx - mn));',
-        '   gl_FragColor.a = 1.0;',
-        '   gl_FragColor.rgb = vec3(dst, dst, dst) + cols[12].rgb;',
-        '}'
-    ];
+    }
+    );
 
 };
 
-PIXI_GLITCH.OutlineFilter.prototype = Object.create(PIXI.AbstractFilter.prototype);
-PIXI_GLITCH.OutlineFilter.prototype.constructor = PIXI_GLITCH.OutlineFilter;
+OutlineFilter.prototype = Object.create(core.AbstractFilter.prototype);
+OutlineFilter.prototype.constructor = OutlineFilter;
 
-
+module.exports = OutlineFilter; 
