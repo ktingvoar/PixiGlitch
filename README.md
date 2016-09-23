@@ -5,7 +5,7 @@ A port of Maxilla's [ofxPostGlitch](https://github.com/maxillacult/ofxPostGlitch
 Get a feel for what you can do by watching Maxilla's demo:
 [http://vimeo.com/58698980](http://vimeo.com/58698980)
 
-Or twiddle the dials on [this example](https://cdn.rawgit.com/ktingvoar/PixiGlitch/master/examples/dashboard/index.html).
+~~Or twiddle the dials on [this example](https://cdn.rawgit.com/ktingvoar/PixiGlitch/master/examples/dashboard/index.html).~~ TODO: Update this demo to work with v3+ filters
 
 #What you get
 A bunch of pixi.js filters roughly sliced into two categories.
